@@ -4,7 +4,6 @@
       <font-awesome-icon icon="fa-solid fa-circle-arrow-down" />
     </div>
     <div
-      ref="circle1"
       style="
         position: relative;
         display: flex;
@@ -25,10 +24,18 @@
           {{ weWin }}
         </v-card>
       </transition>
-
-      <div class="seventyfive" :style="{ background: get_share }"></div>
-      <div class="backgroundfif" style="position: absolute"></div>
-
+      <div
+        ref="circle1"
+        style="
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        "
+      >
+        <div class="seventyfive" :style="{ background: get_share }"></div>
+        <div class="backgroundfif" style="position: absolute"></div>
+      </div>
       <transition leave-active-class="animate__animated animate__flipOutY">
         <div
           v-if="cover"
@@ -150,7 +157,7 @@ export default {
   z-index: 0;
   background-image: repeating-conic-gradient(
     from 0deg,
-    black 0deg 20deg,
+    gray 0deg 20deg,
     white 20deg 40deg
   );
   border-radius: 50%;

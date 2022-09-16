@@ -14,9 +14,14 @@
               >
                 One of the wheels below will be chosen to generate the outcome
                 of the lottery that will partly define your payoff.
-                <div>
-                  FOR NO AMBIGUITY (RISK/CONTROL) TREATMENTS: we highligh the
-                  wheel that is chosen to define the lottery outcome
+                <div>If the arrow above the circle points to green, you win the lottery.</div> 
+                <div>If the arrow above the circle points to red, you lose the lottery.</div> 
+                <div>You can see below some possible variations of the wheels that can define your lottery outcome.</div> 
+                
+                <div class='font-italic'>
+                  COMMENT FOR NO AMBIGUITY (RISK/CONTROL) TREATMENTS: we
+                  <span class="yellow">highlight</span> the wheel that is chosen
+                  to define the lottery outcome
                 </div>
               </v-alert>
             </v-sheet>
