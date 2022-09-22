@@ -12,17 +12,6 @@
       "
     >
       <transition enter-active-class="animate__animated animate__jello">
-        <v-card
-          v-if="result"
-          :color="winningColor"
-          outlined
-          rounded
-          style="position: absolute; z-index: 10"
-          :elevation="10"
-          class="px-3 m-3 white--text font-weight-bold"
-        >
-          {{ weWin }}
-        </v-card>
       </transition>
       <div
         ref="circle1"
