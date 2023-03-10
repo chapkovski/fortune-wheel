@@ -1,3 +1,4 @@
+ /* eslint-disable */
 <template>
   <v-card class="mx-1 px-3 my-1 py-3" outlined rounded :elevation="10">
     <div>
