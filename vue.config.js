@@ -6,6 +6,10 @@ module.exports = {
         main: {
             entry: "./src/main.js",
             chunks: ["chunk-vendors"],
+        },
+        single: {
+            entry: "./src/single_main.js",
+            chunks: ["chunk-vendors"],
         }
 
     },

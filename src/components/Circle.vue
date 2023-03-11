@@ -51,7 +51,7 @@ function radians_to_degrees(radians) {
 }
 export default {
   name: "App",
-  props: ["share"],
+  props: ["share", 'single'],
   components: {},
   data() {
     return {
@@ -67,7 +67,14 @@ export default {
     const that = this;
     const r = _.random(0, 359);
     const final = 720 + r;
-    this.animation = this.$anime({
+    const singleInjection = {
+      rotate: 360,
+      duration: 3600,
+      loop: true,
+      easing: "linear",
+      delay:0,  
+    }
+    let configs = {
       targets: targets,
 
       rotate: final,
@@ -80,7 +87,7 @@ export default {
         const rad = anim.animations[0].currentValue;
         const regex = /(.*?)deg/;
         const found = rad.match(regex);
-        console.debug(found);
+        
         that.val = found[1] % 360;
 
         // console.debug(radians_to_degrees(radVal))
@@ -88,7 +95,12 @@ export default {
       complete: function (anim) {
         that.result = true;
       },
-    });
+    }
+    if (this.single){
+       configs={...configs, ...singleInjection}
+    }
+    console.debug(configs)
+    this.animation = this.$anime(configs);
     this.animation.pause();
     this.isPlaying = false;
   },
