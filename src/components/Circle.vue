@@ -1,26 +1,25 @@
  /* eslint-disable */
 <template>
-  <v-card 
-  style=" align-items: center!important; justify-content: center;"
-  class="mx-1 px-3 my-1 py-3 d-flex flex-column justify-center align-center" :color="my_color" outlined rounded
+  <v-card style=" align-items: center!important; justify-content: center;" :style="{'background':my_color}"
+    class="mx-1 px-3 my-1 py-3 d-flex flex-column justify-center align-center" :color="my_color" outlined rounded
     :elevation="10">
     <div class="mb-1">
       <font-awesome-icon icon="fa-solid fa-circle-arrow-down" />
     </div>
     <div style="
-                  position: relative;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                ">
-      <transition enter-active-class="animate__animated animate__jello">
-      </transition>
-      <div ref="circle1" style="
                     position: relative;
                     display: flex;
                     align-items: center;
                     justify-content: center;
                   ">
+      <transition enter-active-class="animate__animated animate__jello">
+      </transition>
+      <div ref="circle1" style="
+                      position: relative;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                    ">
         <div class="seventyfive" :style="{ background: get_share }"></div>
         <div class="backgroundfif" style="position: absolute"></div>
       </div>
@@ -43,7 +42,7 @@ function radians_to_degrees(radians) {
 }
 export default {
   name: "App",
-  props: ["share", 'single', 'color', 'startingCover','label'],
+  props: ["share", 'single', 'color', 'startingCover', 'label'],
   components: {},
   data() {
     return {
@@ -94,7 +93,7 @@ export default {
     if (this.single) {
       configs = { ...configs, ...singleInjection }
     }
-    console.debug(configs)
+    
     this.animation = this.$anime(configs);
     if (!this.single) {
       this.animation.pause();
@@ -127,8 +126,10 @@ export default {
   },
   methods: {
     hideCover() {
+       if (!this.single) {
       this.cover = false;
       this.startSpin();
+       }
     },
 
     startSpin() {
