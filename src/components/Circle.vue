@@ -1,40 +1,32 @@
  /* eslint-disable */
 <template>
-  <v-card class="mx-1 px-3 my-1 py-3" outlined rounded :elevation="10">
-    <div>
+  <v-card 
+  style=" align-items: center!important; justify-content: center;"
+  class="mx-1 px-3 my-1 py-3 d-flex flex-column justify-center align-center" :color="my_color" outlined rounded
+    :elevation="10">
+    <div class="mb-1">
       <font-awesome-icon icon="fa-solid fa-circle-arrow-down" />
     </div>
-    <div
-      style="
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      "
-    >
+    <div style="
+                  position: relative;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                ">
       <transition enter-active-class="animate__animated animate__jello">
       </transition>
-      <div
-        ref="circle1"
-        style="
-          position: relative;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        "
-      >
+      <div ref="circle1" style="
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                  ">
         <div class="seventyfive" :style="{ background: get_share }"></div>
         <div class="backgroundfif" style="position: absolute"></div>
       </div>
       <transition leave-active-class="animate__animated animate__flipOutY">
-        <div
-          v-if="cover"
-          class="fif"
-          ref="cover"
-          @click="hideCover"
-          style="position: absolute; z-index: 10"
-        >
-          <div>Click me!</div>
+        <div v-if="cover" class="fif" ref="cover" @click="hideCover" style="position: absolute; z-index: 10">
+          <div v-if="label">Click me!</div>
         </div>
       </transition>
     </div>
@@ -51,15 +43,16 @@ function radians_to_degrees(radians) {
 }
 export default {
   name: "App",
-  props: ["share", 'single'],
+  props: ["share", 'single', 'color', 'startingCover','label'],
   components: {},
   data() {
     return {
+      cover: this.startingCover,
       result: false,
-      cover: true,
       animation: null,
       isPlaying: false,
-      val: "ssss",
+      my_color: '',
+      val: "ssss"
     };
   },
   mounted() {
@@ -72,7 +65,7 @@ export default {
       duration: 3600,
       loop: true,
       easing: "linear",
-      delay:0,  
+      delay: 0,
     }
     let configs = {
       targets: targets,
@@ -87,27 +80,32 @@ export default {
         const rad = anim.animations[0].currentValue;
         const regex = /(.*?)deg/;
         const found = rad.match(regex);
-        
+
         that.val = found[1] % 360;
 
         // console.debug(radians_to_degrees(radVal))
       },
       complete: function (anim) {
         that.result = true;
+        that.my_color = that.color
       },
     }
-    if (this.single){
-       configs={...configs, ...singleInjection}
+    if (this.single) {
+      configs = { ...configs, ...singleInjection }
     }
     console.debug(configs)
     this.animation = this.$anime(configs);
-    this.animation.pause();
-    this.isPlaying = false;
+    if (!this.single) {
+      this.animation.pause();
+      this.isPlaying = false;
+    }
+
   },
   watch: {
-    val(v) {},
+    val(v) { },
   },
   computed: {
+
     winningColor() {
       const cutVal = this.val % 360;
       return cutVal >= this.losingangle ? "green" : "red";
@@ -152,22 +150,22 @@ export default {
   width: 150px;
   height: 150px;
 }
+
 .backgroundfif {
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 0;
-  background-image: repeating-conic-gradient(
-    from 0deg,
-    gray 0deg 20deg,
-    white 20deg 40deg
-  );
+  background-image: repeating-conic-gradient(from 0deg,
+      gray 0deg 20deg,
+      white 20deg 40deg);
   border-radius: 50%;
   width: 160px;
   height: 160px;
 
   border: black 1px solid;
 }
+
 .fif {
   display: flex;
   align-items: center;

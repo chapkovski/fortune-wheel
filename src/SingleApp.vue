@@ -1,7 +1,9 @@
 <template>
-  <div style="position:fixed!important; bottom:50px;left:50px;z-index: 10000;">
-  <fortune-wheel :share="50" :single="true"  ></fortune-wheel>
-</div>
+  <div
+    style="position:fixed!important; bottom:50px;left:50px;z-index: 10000; align-items: center!important; justify-content: center;"
+    class="d-flex flex-column align-items-center justify-center">
+    <fortune-wheel :share="selectedRisk" :single="true" :startingCover="startingCover" :label="false"></fortune-wheel>
+  </div>
 </template>
 
 <script>
@@ -14,7 +16,12 @@ export default {
   components: { FortuneWheel },
   data() {
     const wheels = _.range(0, 101, 10);
-    return { wheels: _.shuffle(wheels) };
+    return {
+      wheels: _.shuffle(wheels),
+      startingCover:!window.showColor,
+      
+      selectedRisk: window.selectedRisk,
+    };
   },
   mounted() {
     this.$vuetify.theme.dark = false;
@@ -30,5 +37,4 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
-}
-</style>
+}</style>

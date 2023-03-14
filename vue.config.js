@@ -1,18 +1,13 @@
 const path = require("path");
+const pages =  {
+    main: {
+        entry: "./src/main.js",
+        chunks: ["chunk-common","chunk-vendors" ]
+    }
 
+}
 module.exports = {
-    lintOnSave: false,
-    pages: {
-        main: {
-            entry: "./src/main.js",
-            chunks: ["chunk-vendors"],
-        },
-        single: {
-            entry: "./src/single_main.js",
-            chunks: ["chunk-vendors"],
-        }
-
-    },
+    pages: pages,
     // Should be STATIC_URL + path/to/build
     publicPath: "/front/",
     lintOnSave: false,
@@ -31,4 +26,47 @@ module.exports = {
     },
 
     transpileDependencies: ["vuetify"],
+    chainWebpack: config => {
+
+        config.optimization
+            .splitChunks({
+                cacheGroups: {
+                    vendor: {
+                        test: /[\\/]node_modules[\\/]/,
+                        name: "chunk-vendors",
+                        chunks: "all",
+                        priority: 2
+                    },
+                    vendor: {
+                        test: /[\\/]node_modules[\\/]/,
+                        name: "chunk-common",
+                        chunks: "all",
+                        priority: 1
+                    },
+                },
+            });
+
+        Object.keys(pages).forEach(page => {
+            config.plugins.delete(`html-${page}`);
+            config.plugins.delete(`preload-${page}`);
+            config.plugins.delete(`prefetch-${page}`);
+        })
+
+        // config
+        //     .plugin('BundleTracker')
+        //     .use(BundleTracker, [{filename: '../vue_frontend/webpack-stats.json'}]);
+
+        config.resolve.alias
+            .set('__STATIC__', 'static')
+
+        config.devServer
+            .public('http://localhost:8080')
+            .host('localhost')
+            .port(8080)
+            .hotOnly(true)
+            .watchOptions({ poll: 1000 })
+            .https(false)
+            .headers({ "Access-Control-Allow-Origin": ["*"] })
+
+    }
 };
