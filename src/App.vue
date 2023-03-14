@@ -1,18 +1,15 @@
 <template>
-  <v-app app>
-    <v-main app>
-      <v-container fluid>
+  
 
         <v-row class="d-flex flex-row">
           <v-col class="d-flex flex-row flex-wrap">
             <fortune-wheel :color="showColor && w === selectedRisk ? 'yellow' : ''" :share="w" :single="false"
             :label="true"
-              :startingCover="true" v-for="(w, i) in wheels" :key="i"></fortune-wheel>
+              :startingCover="true" v-for="(w, i) in wheels" :key="i"
+              @animationOver="increaseDone"></fortune-wheel>
           </v-col>
         </v-row>
-      </v-container>
-    </v-main>
-  </v-app>
+ 
 </template>
 
 <script>
@@ -26,14 +23,24 @@ export default {
   data() {
     const wheels = _.range(0, 101, 10);
     return {
+      counterDone:0,
       wheels: _.shuffle(wheels),
       showColor: window.showColor,
       selectedRisk: window.selectedRisk,
     };
   },
+  watch:{counterDone(v){
+    if (v===this.wheels.length){
+      $('#next').removeClass('d-none')
+    }
+  }},
   mounted() {
     this.$vuetify.theme.dark = false;
   },
+  methods:{increaseDone(){
+    this.counterDone++;
+    console.debug('ONE MORE DONE!', this.counterDone)
+  }}
 };
 </script>
 

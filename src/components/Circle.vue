@@ -86,6 +86,7 @@ export default {
         // console.debug(radians_to_degrees(radVal))
       },
       complete: function (anim) {
+        that.$emit('animationOver')
         that.result = true;
         that.my_color = that.color
       },
