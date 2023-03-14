@@ -3,7 +3,11 @@ const pages =  {
     main: {
         entry: "./src/main.js",
         chunks: ["chunk-common","chunk-vendors" ]
-    }
+    },
+    single: {
+        entry: "./src/single_main.js",
+        chunks: ["chunk-common","chunk-vendors" ]
+    },
 
 }
 module.exports = {
