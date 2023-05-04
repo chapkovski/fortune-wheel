@@ -1,8 +1,11 @@
 <template>
   <div
-    style="position:fixed!important; bottom:50px;left:50px;z-index: 10000; align-items: center!important; justify-content: center;"
+    :style="noAnim?``:`position:fixed!important; bottom:50px;left:50px;z-index: 10000; `"
+    style="align-items: center!important; justify-content: center;"
     class="d-flex flex-column align-items-center justify-center">
-    <fortune-wheel :share="selectedRisk" :single="true" :startingCover="startingCover" :label="false"></fortune-wheel>
+    <fortune-wheel :share="selectedRisk" :single="true" 
+    :noAnim="noAnim"
+    :startingCover="startingCover" :label="false"></fortune-wheel>
   </div>
 </template>
 
@@ -17,6 +20,7 @@ export default {
   data() {
     const wheels = _.range(0, 101, 10);
     return {
+      noAnim:window.noAnim,
       wheels: _.shuffle(wheels),
       startingCover:!window.showColor,
       

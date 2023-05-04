@@ -42,7 +42,7 @@ function radians_to_degrees(radians) {
 }
 export default {
   name: "App",
-  props: ["share", 'single', 'color', 'startingCover', 'label'],
+  props: ["share", 'single', 'color', 'startingCover', 'label', 'noAnim'],
   components: {},
   data() {
     return {
@@ -59,6 +59,14 @@ export default {
     const that = this;
     const r = _.random(0, 359);
     const final = 720 + r;
+    const noAnimConfig = {
+      rotate:window.lotteryOutcome,
+      duration:0,
+      delay:0, 
+      easing: "linear",
+      loop:false
+    }
+
     const singleInjection = {
       rotate: 360,
       duration: 3600,
@@ -82,7 +90,7 @@ export default {
 
         that.val = found[1] % 360;
 
-        // console.debug(radians_to_degrees(radVal))
+        console.debug(parseInt(rad))
       },
       complete: function (anim) {
         that.$emit('animationOver')
@@ -93,7 +101,9 @@ export default {
     if (this.single) {
       configs = { ...configs, ...singleInjection }
     }
-    
+    if (this.noAnim) {
+      configs = { ...configs, ...noAnimConfig }
+    }
     this.animation = this.$anime(configs);
     if (!this.single) {
       this.animation.pause();
