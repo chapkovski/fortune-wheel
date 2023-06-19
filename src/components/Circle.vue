@@ -90,7 +90,7 @@ export default {
 
         that.val = found[1] % 360;
 
-        console.debug(parseInt(rad))
+       
       },
       complete: function (anim) {
         that.$emit('animationOver')

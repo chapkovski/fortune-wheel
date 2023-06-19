@@ -4,7 +4,9 @@ import VueAnime from "vue-animejs";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import Vuetify from "vuetify";
 import "vuetify/dist/vuetify.min.css";
+import VueCountdown from '@chenfengyuan/vue-countdown';
 
+Vue.component(VueCountdown.name, VueCountdown);
 Vue.use(Vuetify);
 
 const opts = {};
