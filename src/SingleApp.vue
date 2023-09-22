@@ -1,9 +1,10 @@
 <template>
   <draggable>
   <div
-    :style="noAnim?``:`position:fixed!important; bottom:50px;left:50px;z-index: 10000; `"
+    :style="noAnim?``:`bottom:50px;left:50px;z-index: 10000; `"
     style="align-items: center!important; justify-content: center;"
     class="d-flex flex-column align-items-center justify-center">
+
     <fortune-wheel :share="selectedRisk" :single="true" 
     :noAnim="noAnim"
     :startingCover="startingCover" :label="false"></fortune-wheel>

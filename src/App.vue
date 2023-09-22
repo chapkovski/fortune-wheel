@@ -5,7 +5,11 @@
         <v-col>
           <div class="aler alert-danger" v-if="showTimer">
             <countdown :time="15 * 1000" @end="endCountDown">
-              <template slot-scope="props">You will be able to proceed further in {{ props.seconds }} seconds.</template>
+              <template slot-scope="props">
+               <div v-if="allCountersDone">
+                  You will be able to proceed further in {{ props.seconds }} seconds.
+               </div>
+              </template>
             </countdown>
           </div>
         </v-col>
@@ -43,6 +47,7 @@ export default {
     };
   },
   watch: {
+
     counterDone(v) {
       if (v === this.wheels.length )  {
         
